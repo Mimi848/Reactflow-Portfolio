@@ -40,12 +40,8 @@ const normalDebounce = debounce(500);
 const useDraggableEdgeLabel = (
   sourceX: number,
   sourceY: number,
-  sourceWidth: number,
-  sourceHeight: number,
   targetX: number,
   targetY: number,
-  targetWidth: number,
-  targetHeight: number,
   labelPosition?: number
 ): [RefObject<SVGPathElement>, RefObject<HTMLDivElement>] => {
   const edgePathRef = useRef<SVGPathElement>(null);
@@ -53,11 +49,6 @@ const useDraggableEdgeLabel = (
   const draggableEdgeLabelRef = useRef<HTMLDivElement>(null);
   const edgeText = useRef({ index: labelPosition ?? INITIAL_EDGE_POSITION });
   const debounceFunc = useRef(normalDebounce((fn) => fn())).current;
-
-  useEffect(
-    () => setLabelPosition(draggableEdgeLabelRef, edgePathRef, edgeText),
-    []
-  );
 
   useEffect(() => {
     if (draggableEdgeLabelRef.current && edgePathRef.current) {
@@ -112,16 +103,7 @@ const useDraggableEdgeLabel = (
       debounceFunc.cancel();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    sourceX,
-    sourceY,
-    targetX,
-    targetY,
-    sourceWidth,
-    sourceHeight,
-    targetWidth,
-    targetHeight,
-  ]);
+  }, [sourceX, sourceY, targetX, targetY]);
 
   return [edgePathRef, draggableEdgeLabelRef];
 };

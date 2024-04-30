@@ -1,10 +1,9 @@
-import React, { useCallback } from "react";
+import React from "react";
 import {
   EdgeLabelRenderer,
   EdgeProps,
-  getBezierPath,
+  getSmoothStepPath,
   useReactFlow,
-  useStore,
 } from "reactflow";
 import { useDraggableEdgeLabel } from "../../hooks";
 
@@ -18,18 +17,9 @@ const CustomEdge: React.FC<EdgeProps> = ({
   targetPosition,
   style = {},
   markerEnd,
-  source,
-  target,
 }) => {
   const { setEdges } = useReactFlow();
-  const sourceNode = useStore(
-    useCallback((store) => store.nodeInternals.get(source), [source])
-  );
-  const targetNode = useStore(
-    useCallback((store) => store.nodeInternals.get(target), [target])
-  );
-
-  const [edgePath, labelX, labelY] = getBezierPath({
+  const [edgePath, labelX, labelY] = getSmoothStepPath({
     sourceX,
     sourceY,
     sourcePosition,
@@ -40,12 +30,8 @@ const CustomEdge: React.FC<EdgeProps> = ({
   const [edgePathRef, draggableEdgeLabelRef] = useDraggableEdgeLabel(
     sourceX,
     sourceY,
-    sourceNode?.data.width,
-    sourceNode?.data.height,
     targetX,
-    targetY,
-    targetNode?.data.width,
-    targetNode?.data.height
+    targetY
   );
 
   const onEdgeClick = () => {

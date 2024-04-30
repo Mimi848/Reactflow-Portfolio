@@ -25,7 +25,7 @@ const initialNodes: Node[] = [
   {
     id: "button-2",
     data: { label: "Button Edge 2" },
-    position: { x: 125, y: 200 },
+    position: { x: 25, y: 400 },
   },
 ];
 
@@ -39,8 +39,6 @@ const initialEdges: Edge[] = [
 ];
 
 const edgeTypes = {
-  bidirectional: ButtonEdge,
-  selfconnecting: ButtonEdge,
   buttonedge: ButtonEdge,
 };
 
